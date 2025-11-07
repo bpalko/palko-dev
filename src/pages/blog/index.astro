@@ -1,21 +1,19 @@
 ---
+import type { MarkdownInstance } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-interface BlogPost {
-  frontmatter: {
-    title: string;
-    description: string;
-    pubDate: string;
-    tags?: string[];
-  };
-  url?: string;
+interface Frontmatter {
+  title: string;
+  description: string;
+  pubDate: string;
+  tags?: string[];
 }
 
-// Get all blog posts
-const posts = await Astro.glob<BlogPost>('./*.md');
+// Get all blog posts (MarkdownInstance matches Astro.glob's return type)
+const posts: MarkdownInstance<Frontmatter>[] = await Astro.glob('./*.md');
 
 // Sort by date (newest first)
-const sortedPosts = posts.sort((a: BlogPost, b: BlogPost) => {
+const sortedPosts = posts.sort((a: MarkdownInstance<Frontmatter>, b: MarkdownInstance<Frontmatter>) => {
   const dateA = new Date(a.frontmatter.pubDate);
   const dateB = new Date(b.frontmatter.pubDate);
   return dateB.getTime() - dateA.getTime();
@@ -29,7 +27,7 @@ const sortedPosts = posts.sort((a: BlogPost, b: BlogPost) => {
   </div>
 
   <div class="posts">
-    {sortedPosts.map((post) => (
+    {sortedPosts.map((post: { frontmatter: { pubDate: unknown; title: unknown; description: unknown; }; url: string | URL | null | undefined; }) => (
       <article class="post">
         <time class="date">{post.frontmatter.pubDate}</time>
         <h2><a href={post.url}>{post.frontmatter.title}</a></h2>
