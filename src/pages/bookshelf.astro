@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { books, type Book } from '../data/books';
+
+// Group books by status
+const reading = books.filter((book) => book.status === 'reading');
+const completed = books.filter((book) => book.status === 'completed');
+const wantToRead = books.filter((book) => book.status === 'want-to-read');
+
+---
+
+<BaseLayout title="Bookshelf">
+  <h1>Bookshelf</h1>
+  <p class="subtitle">Books I'm reading, have read, and want to read</p>
+
+  {reading.length > 0 && (
+    <section>
+      <h2>Currently Reading:</h2>
+      <ul class="book-list">
+        {reading.map((book) => (
+          <li class="book-card">
+            <strong>{book.title}</strong> by {book.author} ({book.year})
+            {book.notes && <span> - {book.notes}</span>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {completed.length > 0 && (
+    <section>
+      <h2>Completed:</h2>
+      <ul class="book-list">
+        {completed.map((book) => (
+          <li class="book-card">
+            <strong>{book.title}</strong> by {book.author} ({book.year})
+            {book.notes && <span> - {book.notes}</span>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {wantToRead.length > 0 && (
+    <section>
+      <h2>Want to Read:</h2>
+      <ul class="book-list">
+        {wantToRead.map((book) => (
+          <li class="book-card">
+            <strong>{book.title}</strong> by {book.author} ({book.year})
+            {book.notes && <span> - {book.notes}</span>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: white;
+  }
+
+  .subtitle {
+    color: #b0b0b0;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  section {
+    margin-bottom: 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: white;
+  }
+
+  .book-list {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .book-card {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+  }
+
+  .book-card strong {
+    color: white;
+  }
+</style>
