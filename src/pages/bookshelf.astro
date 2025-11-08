@@ -1,11 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { books } from '../data/books';
+import { getBookCovers } from '../utils/bookCovers';
+
+// Only fetch covers for books that don't have a manual coverUrl
+const booksNeedingCovers = books.filter((book) => !book.coverUrl);
+const bookCovers = await getBookCovers(booksNeedingCovers);
+
+// Attach cover URLs to books (manual URLs take priority)
+const booksWithCovers = books.map((book) => ({
+  ...book,
+  coverUrl: book.coverUrl || bookCovers.get(book.title),
+}));
 
 // Group books by status
-const reading = books.filter((book) => book.status === 'reading');
-const completed = books.filter((book) => book.status === 'completed');
-const wantToRead = books.filter((book) => book.status === 'want-to-read');
+const reading = booksWithCovers.filter((book) => book.status === 'reading');
+const completed = booksWithCovers.filter((book) => book.status === 'completed');
+const wantToRead = booksWithCovers.filter((book) => book.status === 'want-to-read');
 
 ---
 
@@ -15,43 +26,82 @@ const wantToRead = books.filter((book) => book.status === 'want-to-read');
 
   {reading.length > 0 && (
     <section>
-      <h2>Currently Reading:</h2>
-      <ul class="book-list">
+      <h2>Currently Reading</h2>
+      <div class="book-grid">
         {reading.map((book) => (
-          <li class="book-card">
-            <strong>{book.title}</strong> by {book.author} ({book.year})
-            {book.notes && <span> - {book.notes}</span>}
-          </li>
+          <div class="book-card">
+            <div class="book-cover">
+              {book.coverUrl ? (
+                <img src={book.coverUrl} alt={`Cover of ${book.title}`} />
+              ) : (
+                <div class="no-cover">
+                  <span>📚</span>
+                </div>
+              )}
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">{book.title}</h3>
+              <p class="book-author">{book.author}</p>
+              <p class="book-year">{book.year}</p>
+              {book.notes && <p class="book-notes">{book.notes}</p>}
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   )}
 
   {completed.length > 0 && (
     <section>
-      <h2>Completed:</h2>
-      <ul class="book-list">
+      <h2>Completed</h2>
+      <div class="book-grid">
         {completed.map((book) => (
-          <li class="book-card">
-            <strong>{book.title}</strong> by {book.author} ({book.year})
-            {book.notes && <span> - {book.notes}</span>}
-          </li>
+          <div class="book-card">
+            <div class="book-cover">
+              {book.coverUrl ? (
+                <img src={book.coverUrl} alt={`Cover of ${book.title}`} />
+              ) : (
+                <div class="no-cover">
+                  <span>📚</span>
+                </div>
+              )}
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">{book.title}</h3>
+              <p class="book-author">{book.author}</p>
+              <p class="book-year">{book.year}</p>
+              {book.notes && <p class="book-notes">{book.notes}</p>}
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   )}
 
   {wantToRead.length > 0 && (
     <section>
-      <h2>Want to Read:</h2>
-      <ul class="book-list">
+      <h2>Want to Read</h2>
+      <div class="book-grid">
         {wantToRead.map((book) => (
-          <li class="book-card">
-            <strong>{book.title}</strong> by {book.author} ({book.year})
-            {book.notes && <span> - {book.notes}</span>}
-          </li>
+          <div class="book-card">
+            <div class="book-cover">
+              {book.coverUrl ? (
+                <img src={book.coverUrl} alt={`Cover of ${book.title}`} />
+              ) : (
+                <div class="no-cover">
+                  <span>📚</span>
+                </div>
+              )}
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">{book.title}</h3>
+              <p class="book-author">{book.author}</p>
+              <p class="book-year">{book.year}</p>
+              {book.notes && <p class="book-notes">{book.notes}</p>}
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   )}
 </BaseLayout>
@@ -71,28 +121,102 @@ const wantToRead = books.filter((book) => book.status === 'want-to-read');
   }
 
   section {
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
   }
 
   h2 {
     font-size: 1.1rem;
     font-weight: 700;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
     color: white;
   }
 
-  .book-list {
-    margin-left: 1.5rem;
-    margin-bottom: 1rem;
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
   }
 
   .book-card {
-    margin-bottom: 0.5rem;
-    line-height: 1.6;
-    color: #e0e0e0;
+    display: flex;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.2s ease;
   }
 
-  .book-card strong {
+  .book-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .book-cover {
+    flex-shrink: 0;
+    width: 80px;
+    height: 120px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .no-cover {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    font-size: 2rem;
+  }
+
+  .book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .book-title {
+    font-size: 1rem;
+    font-weight: 600;
     color: white;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .book-author {
+    font-size: 0.875rem;
+    color: #b0b0b0;
+    margin: 0;
+  }
+
+  .book-year {
+    font-size: 0.8rem;
+    color: #808080;
+    margin: 0;
+  }
+
+  .book-notes {
+    font-size: 0.85rem;
+    color: #d0d0d0;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .book-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
