@@ -6,6 +6,8 @@ This is just a passion site for me. I'm looking to dive into the world of bloggi
 
 I'm not the world's most well-read person, but the books I have read I'm passionate about. You'll find those on my bookshelf, both in this site, and at home.
 
+You'll find my bar cart. I'm interested in spirits, mainly whiskey and red wines. Recently been experimenting with different gins as well.
+
 ## 🚀 Quick Start
 
 ### Development
@@ -34,23 +36,37 @@ npm run preview
 
 ```
 /
-├── package.json
-├── public/           # Static assets (images, favicon, etc.)
 ├── README.md
 ├── astro.config.mjs
-├── tsconfig.json
-└── src/
-	├── components/   # Reusable components
-	├── data/         # TypeScript data files
-	│   └── books.ts  # Bookshelf data
-	├── layouts/      # Page layouts
-	│   ├── BaseLayout.astro
-	│   └── BlogPost.astro
-	├── pages/        # Routes (file-based routing)
-	│   ├── index.astro           # Homepage
-	│   ├── bookshelf.astro       # Bookshelf page
-	│   └── blog/
-	│       ├── index.astro       # Blog listing
-	│       └── *.md              # Blog posts
-	└── utils/        # Various utils in TypeScript (API lookups)
+├── package-lock.json
+├── package.json
+├── public
+│   ├── bottles
+│   │   ├── buffalotrace.png
+│   │   ├── campari.png
+│   │   ├── eaglerare.png
+│   │   ├── ehtaylorSB.png
+│   │   ├── elijahcraigBP.png
+│   │   ├── midwinter12.png
+│   │   ├── midwinter13.png
+│   │   ├── rosso.png
+│   │   └── tenjaku.png
+│   └── palko.png
+├── src
+│   ├── data
+│   │   ├── barCart.ts
+│   │   └── books.ts
+│   ├── layouts
+│   │   ├── BaseLayout.astro
+│   │   └── BlogPost.astro
+│   ├── pages
+│   │   ├── bar-cart.astro
+│   │   ├── blog
+│   │   │   ├── index.astro
+│   │   │   └── learning-typescript.md
+│   │   ├── bookshelf.astro
+│   │   └── index.astro
+│   └── utils
+│       └── bookCovers.ts
+└── tsconfig.json
 ```
