@@ -86,7 +86,7 @@ export const books: Book[] = [
     title: 'The Martian',
     author: 'Andy Weir',
     year: 2011,
-    status: 'want-to-read',
+    status: 'reading',
     notes: 'I\'ve seen the movie many times; I heard the book makes Mark Watney\'s struggles even more intense.',
   },
   {

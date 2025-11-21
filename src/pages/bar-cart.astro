@@ -1,0 +1,250 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { barCart } from '../data/barCart';
+
+// Group booze by status
+const current = barCart.filter((booze) => booze.status === 'current');
+const finished = barCart.filter((booze) => booze.status === 'finished');
+const wishlist = barCart.filter((booze) => booze.status === 'wishlist');
+
+// Helper function to render star rating
+function renderStars(rating: number | undefined) {
+  if (!rating) return '';
+  return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+}
+---
+
+<BaseLayout title="Bar Cart">
+  <h1>Bar Cart</h1>
+  <p class="subtitle">The booze currently on the bar cart. You'll find just about anything.</p>
+
+  {current.length > 0 && (
+    <section>
+      <h2>Current Bottles</h2>
+      <div class="booze-grid">
+        {current.map((booze) => (
+          <div class="booze-card">
+            <div class="booze-image">
+              {booze.imageUrl ? (
+                <img src={booze.imageUrl} alt={`Bottle of ${booze.name}`} />
+              ) : (
+                <div class="no-image">
+                  <span>🥃</span>
+                </div>
+              )}
+            </div>
+            <div class="booze-info">
+              <h3 class="booze-name">{booze.name}</h3>
+              <p class="booze-meta">
+                <span class="booze-type">{booze.type}</span>
+                {booze.age && <span> • {booze.age}</span>}
+                {booze.proof && <span> • {booze.proof} Proof</span>}
+              </p>
+              <p class="booze-distillery">{booze.distillery}</p>
+              {booze.rating && (
+                <p class="booze-rating" title={`${booze.rating} out of 5`}>
+                  {renderStars(booze.rating)}
+                </p>
+              )}
+              {booze.notes && <p class="booze-notes">{booze.notes}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {finished.length > 0 && (
+    <section>
+      <h2>Finished Bottles</h2>
+      <div class="booze-grid">
+        {finished.map((booze) => (
+          <div class="booze-card">
+            <div class="booze-image">
+              {booze.imageUrl ? (
+                <img src={booze.imageUrl} alt={`Bottle of ${booze.name}`} />
+              ) : (
+                <div class="no-image">
+                  <span>🥃</span>
+                </div>
+              )}
+            </div>
+            <div class="booze-info">
+              <h3 class="booze-name">{booze.name}</h3>
+              <p class="booze-meta">
+                <span class="booze-type">{booze.type}</span>
+                {booze.age && <span> • {booze.age}</span>}
+                {booze.proof && <span> • {booze.proof} Proof</span>}
+              </p>
+              <p class="booze-distillery">{booze.distillery}</p>
+              {booze.rating && (
+                <p class="booze-rating" title={`${booze.rating} out of 5`}>
+                  {renderStars(booze.rating)}
+                </p>
+              )}
+              {booze.notes && <p class="booze-notes">{booze.notes}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {wishlist.length > 0 && (
+    <section>
+      <h2>Wishlist</h2>
+      <div class="booze-grid">
+        {wishlist.map((booze) => (
+          <div class="booze-card">
+            <div class="booze-image">
+              {booze.imageUrl ? (
+                <img src={booze.imageUrl} alt={`Bottle of ${booze.name}`} />
+              ) : (
+                <div class="no-image">
+                  <span>🥃</span>
+                </div>
+              )}
+            </div>
+            <div class="booze-info">
+              <h3 class="booze-name">{booze.name}</h3>
+              <p class="booze-meta">
+                <span class="booze-type">{booze.type}</span>
+                {booze.age && <span> • {booze.age}</span>}
+                {booze.proof && <span> • {booze.proof} Proof</span>}
+              </p>
+              <p class="booze-distillery">{booze.distillery}</p>
+              {booze.notes && <p class="booze-notes">{booze.notes}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: white;
+  }
+
+  .subtitle {
+    color: #b0b0b0;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  section {
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    color: white;
+  }
+
+  .booze-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .booze-card {
+    display: flex;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .booze-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .booze-image {
+    flex-shrink: 0;
+    width: 80px;
+    height: 120px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .booze-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    font-size: 2rem;
+  }
+
+  .booze-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .booze-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .booze-meta {
+    font-size: 0.8rem;
+    color: #b0b0b0;
+    margin: 0;
+  }
+
+  .booze-type {
+    color: #6cb4ff;
+    font-weight: 500;
+  }
+
+  .booze-distillery {
+    font-size: 0.875rem;
+    color: #808080;
+    margin: 0;
+  }
+
+  .booze-rating {
+    font-size: 0.9rem;
+    color: #ffb347;
+    margin: 0.25rem 0 0 0;
+    letter-spacing: 2px;
+  }
+
+  .booze-notes {
+    font-size: 0.85rem;
+    color: #d0d0d0;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .booze-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
