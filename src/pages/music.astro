@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const ON_REPEAT_PLAYLIST_ID = '37i9dQZF1EpvH5fg4WpI6V';
+
+const playlists = [
+  { name: "Yo Daddy's Yacht Rock", id: '0D0ExDmtDIOc4rsUgptXde' },
+  { name: 'Divorced Dad Rock', id: '1pQ3pMBkbzxgKsp9H4UxVZ' },
+  { name: 'MidWest Emo', id: '6uPSXhw5JB7i6XvMI5FhBH' },
+  { name: 'Illmatic', id: '19TBXgTlTflStysaFjv1UQ' },
+  { name: 'Two Tequila Sodas at ZARA', id: '7JTKtuTe9spXawzBWjZqfM' },
+  { name: "Driftin To Yo Momma's House", id: '2yzu2WOeqMZrMEuKcATe9j' },
+  { name: "Palko's Jazz Encyclopedia", id: '2ereachssECetKrBWAYWHw' },
+  { name: 'Pure Testosterone Fuel', id: '1QD6Itgb3SR5yM0srNciI9' },
+  { name: 'GOTHBOICLIQUE', id: '5pWtwPvf7aXeCoLRkjq4YC' },
+];
+---
+
+<BaseLayout title="Music">
+  <h1>Music</h1>
+  <p class="subtitle">I promise I have taste...</p>
+
+  <section>
+    <h2>On Repeat</h2>
+    <div class="embed-frame">
+      <iframe
+        title="On Repeat playlist"
+        style="border-radius:12px"
+        src={`https://open.spotify.com/embed/playlist/${ON_REPEAT_PLAYLIST_ID}?utm_source=generator&theme=0`}
+        width="100%"
+        height="480"
+        frameborder="0"
+        allowfullscreen
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </section>
+
+  <section>
+    <h2>Playlists</h2>
+    <div class="playlist-grid">
+      {playlists.map((playlist) => (
+        <div class="embed-frame playlist-embed">
+          <iframe
+            title={`${playlist.name} playlist`}
+            style="border-radius:12px"
+            src={`https://open.spotify.com/embed/playlist/${playlist.id}?utm_source=generator&theme=0`}
+            width="100%"
+            height="152"
+            frameborder="0"
+            allowfullscreen
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          ></iframe>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: white;
+  }
+
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    max-width: 60ch;
+  }
+
+  section {
+    margin-bottom: 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    color: white;
+  }
+
+  .embed-frame {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    line-height: 0;
+  }
+
+  .playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .playlist-embed {
+    transition: border-color 0.2s ease;
+  }
+
+  .playlist-embed:hover {
+    border-color: rgba(74, 222, 128, 0.4);
+  }
+</style>
