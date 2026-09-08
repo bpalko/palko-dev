@@ -1,16 +1,11 @@
-export interface GoogleBooksResponse {
-  items?: Array<{
-    volumeInfo: {
-      imageLinks?: {
-        thumbnail?: string;
-        smallThumbnail?: string;
-      };
-    };
+export interface OpenLibraryResponse {
+  docs?: Array<{
+    cover_i?: number;
   }>;
 }
 
 /**
- * Fetches book cover image URL from Google Books API
+ * Fetches book cover image URL from the Open Library API
  * @param title - Book title
  * @param author - Book author
  * @param customQuery - Optional custom search query (overrides title+author)
@@ -21,25 +16,24 @@ export async function getBookCover(
   author: string,
   customQuery?: string
 ): Promise<string | null> {
-  try {
-    // Use custom query if provided, otherwise construct from title+author
-    const query = customQuery
-      ? encodeURIComponent(customQuery)
-      : `intitle:${encodeURIComponent(title)}+inauthor:${encodeURIComponent(author)}`;
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=1`;
+  const query = customQuery ? `${customQuery}` : `${title} ${author}`;
+  const url = `https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=1&fields=cover_i`;
 
-    const response = await fetch(url);
-    const data: GoogleBooksResponse = await response.json();
-
-    // Get the thumbnail URL, prefer larger thumbnail over small
-    const imageLinks = data.items?.[0]?.volumeInfo?.imageLinks;
-    const coverUrl = imageLinks?.thumbnail || imageLinks?.smallThumbnail;
-
-    // Google Books returns http URLs, convert to https for security
-    return coverUrl ? coverUrl.replace('http://', 'https://') : null;
-  } catch (error) {
-    console.error(`Failed to fetch cover for "${title}":`, error);
-    return null;
+  const maxAttempts = 2;
+  let attempt = 1;
+  while (true) {
+    try {
+      const response = await fetch(url);
+      const data: OpenLibraryResponse = await response.json();
+      const coverId = data.docs?.[0]?.cover_i;
+      return coverId ? `https://covers.openlibrary.org/b/id/${coverId}-L.jpg` : null;
+    } catch (error) {
+      console.error(`Failed to fetch cover for "${title}" (attempt ${attempt}/${maxAttempts}):`, error);
+      if (attempt === maxAttempts) {
+        return null;
+      }
+      attempt++;
+    }
   }
 }
 
