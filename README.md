@@ -8,6 +8,8 @@ I'm not the world's most well-read person, but the books I have read I'm passion
 
 You'll find my bar cart. I'm interested in spirits, mainly whiskey and red wines. Recently been experimenting with different gins as well.
 
+You'll also find my Music page, pulled straight from Spotify. No curation, no highlight reel — I promise I have taste.
+
 ## 🚀 Quick Start
 
 ### Development
@@ -65,7 +67,8 @@ npm run preview
 │   │   │   ├── index.astro
 │   │   │   └── learning-typescript.md
 │   │   ├── bookshelf.astro
-│   │   └── index.astro
+│   │   ├── index.astro
+│   │   └── music.astro
 │   └── utils
 │       └── bookCovers.ts
 └── tsconfig.json
