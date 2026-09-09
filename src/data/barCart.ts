@@ -17,7 +17,7 @@ export const barCart: Booze[] = [
     distillery: 'Buffalo Trace Distillery',
     proof: 90,
     rating: 4,
-    notes: 'A solid everyday bourbon . You\'ll be hard pressed to find something better for the price.',
+    notes: 'A solid everyday bourbon. You\'ll be hard pressed to find something better for the price.',
     status: 'current',
     imageUrl: '/bottles/buffalotrace.png',
   },

@@ -1,6 +1,6 @@
 # palko.dev
 
-A personal portfolio built with Astro and TypeScript, featuring a homepage with resume, blog, and bookshelf.
+A personal site built with Astro and TypeScript. Home is a short pitch. The resume lives on its own page, with a PDF download.
 
 This is just a passion site for me. I'm looking to dive into the world of blogging and writing. I've drawn a lot of inspiritation from Anthony Bourdain, even if his voice and style may not mesh with technical writing. But I don't want this page to only be technical; we'll see what I turn it in to.
 
@@ -53,8 +53,11 @@ npm run preview
 │   │   ├── midwinter13.png
 │   │   ├── rosso.png
 │   │   └── tenjaku.png
-│   └── palko.png
+│   ├── palko.png
+│   └── resume.pdf
 ├── src
+│   ├── components
+│   │   └── Resume.astro
 │   ├── data
 │   │   ├── barCart.ts
 │   │   └── books.ts
@@ -68,7 +71,8 @@ npm run preview
 │   │   │   └── learning-typescript.md
 │   │   ├── bookshelf.astro
 │   │   ├── index.astro
-│   │   └── music.astro
+│   │   ├── music.astro
+│   │   └── resume.astro
 │   └── utils
 │       └── bookCovers.ts
 └── tsconfig.json

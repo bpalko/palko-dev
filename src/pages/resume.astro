@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResumePaper from '../components/Resume.astro';
+---
+
+<BaseLayout title="Resume — Brendan Palkowski" wide>
+  <p class="pdf-link"><a href="/resume.pdf">Download PDF</a></p>
+  <ResumePaper />
+</BaseLayout>
+
+<style>
+  .pdf-link {
+    margin: 0 0 0.85rem;
+    font-size: 0.85rem;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    color: #86efac;
+  }
+
+  @media print {
+    .pdf-link {
+      display: none;
+    }
+  }
+</style>

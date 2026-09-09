@@ -1,0 +1,217 @@
+---
+---
+
+<article class="paper">
+  <div class="name">Brendan Palkowski</div>
+  <div class="contact">
+    <span class="line"><span class="nowrap">Grand Rapids, MI</span></span>
+    <span class="line"><a href="https://palko.dev">palko.dev</a><span class="sep">|</span><a href="https://github.com/bpalko" target="_blank" rel="noreferrer">github.com/bpalko</a><span class="sep">|</span><a href="https://www.linkedin.com/in/brendan-palkowski/" target="_blank" rel="noreferrer">linkedin.com/in/brendan-palkowski</a></span>
+  </div>
+  <section>
+    <h2>Technical Skills</h2>
+    <ul class="skills">
+      <li><b>Core:</b> Go, Python, Bash, Kubernetes (operators, CRDs, Kubebuilder), Terraform, Helm, Crossplane, ArgoCD, Kargo, AWS, GCP</li>
+      <li><b>Infrastructure:</b> Docker, GitLab CI/CD, GitHub Actions, Postgres, Istio, Tyk, External Secrets, Kafka</li>
+      <li><b>Agentic:</b> Cursor (self-hosted agents), Claude Code</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Experience</h2>
+    <div class="entry">
+      <div class="row"><span class="left"><b>Senior Software Engineer</b></span><span class="right">Jan. 2024 – Present</span></div>
+      <div class="row sub"><span class="left"><i>First American</i></span><span class="right">Remote</span></div>
+      <ul class="bullets">
+        <li>Wrote Go Kubernetes operators (Kubebuilder / controller-runtime) that extend the platform control plane: a preview-database operator for pull-request environments (namespace isolation; logical DBs with connection limits; migrations, roles, auth, teardown) and a reconciler that syncs Crossplane-managed Aurora RDS credentials into AWS Secrets Manager across disaster recovery.</li>
+        <li>Adopted Crossplane as the infrastructure API: custom resources and Helm packages for Aurora RDS/DocDB, S3, Redis, and IAM (Pod Identity), consumed by ~400 application tenants.</li>
+        <li>Rolled out ArgoCD and Kargo as the Golden Path, moving releases from multi-month cycles to per-commit delivery. Every tenant depends on a Helm chart we maintain that abstracts platform features onto Kubernetes, including the Istio mesh, External Secrets, ingress via Tyk, and autoscaling.</li>
+        <li>Technical Pod Lead for 3–8 engineers; platform on-call.</li>
+      </ul>
+    </div>
+    <div class="entry">
+      <div class="row"><span class="left"><b>Cloud Engineer</b></span><span class="right">Mar. 2022 – Jan. 2024</span></div>
+      <div class="row sub"><span class="left"><i>Alteryx</i></span><span class="right">Remote</span></div>
+      <ul class="bullets">
+        <li>Rebuilt the multi-cloud Terraform platform (GCP and AWS) across four platform accounts plus customer private data planes, and cut full environment builds from weeks to under 3 hours; wrote the architecture and runtime guide engineering used afterward.</li>
+        <li>Wrote Go services to create and destroy split-plane clusters, generate manifests, template Terraform, and mirror GitLab projects.</li>
+        <li>Technical lead for AI data-plane infrastructure in Terraform; onboarded teams onto Kubernetes, ArgoCD, and Helm.</li>
+      </ul>
+    </div>
+    <div class="entry">
+      <div class="row"><span class="left"><b>Predictive Modeler</b></span><span class="right">June 2020 – Mar. 2022</span></div>
+      <div class="row sub"><span class="left"><i>Auto-Owners Insurance</i></span><span class="right">Lansing, MI</span></div>
+      <ul class="bullets">
+        <li>Built and ran 70+ production microservice scrapers with Kafka and cron, used by underwriters for risk analysis.</li>
+        <li>Migrated the department to Konvoy Kubernetes (production and non-production) and trained modelers on the new cluster.</li>
+      </ul>
+    </div>
+  </section>
+  <section>
+    <h2>Education</h2>
+    <div class="entry">
+      <div class="row"><span class="left"><b>University of Michigan</b></span><span class="right">Ann Arbor, MI</span></div>
+      <div class="row sub"><span class="left"><i>Bachelor of Science in Information Science</i></span></div>
+    </div>
+  </section>
+  <section>
+    <h2>Volunteer</h2>
+    <div class="entry">
+      <div class="row"><span class="left"><b>Coding Instructor</b>, <i><a href="https://thepiacademy.org">PiAcademy</a></i></span><span class="right">Grand Rapids, MI</span></div>
+      <ul class="bullets">
+        <li>Teach coding fundamentals through Raspberry Pi projects at a local youth tech nonprofit.</li>
+      </ul>
+    </div>
+  </section>
+</article>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&display=swap');
+
+  .paper {
+    width: 8.5in;
+    max-width: 100%;
+    min-height: 11in;
+    background: #ffffff;
+    color: #1b1c20;
+    padding: 0.5in 0.58in;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 10.2pt;
+    line-height: 1.28;
+    box-sizing: border-box;
+  }
+
+  .name {
+    text-align: center;
+    font-weight: 700;
+    font-size: 22pt;
+    font-variant: small-caps;
+    letter-spacing: 0.02em;
+    margin: 0 0 2pt;
+    color: #1b1c20;
+  }
+
+  .contact {
+    text-align: center;
+    font-size: 9.4pt;
+    color: #55575f;
+    margin: 0 0 8pt;
+  }
+
+  .contact a {
+    color: #1b1c20;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .sep {
+    color: #55575f;
+    padding: 0 7px;
+  }
+
+  .line {
+    display: block;
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  section {
+    margin-top: 8pt;
+  }
+
+  section:first-of-type {
+    margin-top: 0;
+  }
+
+  h2 {
+    font-variant: small-caps;
+    font-weight: 600;
+    font-size: 11.5pt;
+    letter-spacing: 0.02em;
+    margin: 0 0 1pt;
+    padding-bottom: 1pt;
+    border-bottom: 1px solid #1b1c20;
+    color: #1b1c20;
+  }
+
+  .entry {
+    margin-top: 5pt;
+  }
+
+  .entry:first-child {
+    margin-top: 3pt;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .left,
+  .right {
+    font-weight: 700;
+  }
+
+  .right {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .row.sub {
+    margin-top: 1pt;
+  }
+
+  .row.sub .left,
+  .row.sub .right,
+  .row.sub i {
+    font-weight: 400;
+    font-style: italic;
+    color: #55575f;
+  }
+
+  .row.sub a {
+    color: #55575f;
+  }
+
+  .bullets {
+    margin: 3pt 0 0;
+    padding-left: 15pt;
+  }
+
+  .bullets li {
+    margin: 0 0 2pt;
+    padding-left: 2pt;
+    color: #1b1c20;
+  }
+
+  .bullets li::marker {
+    font-size: 9pt;
+  }
+
+  .skills {
+    list-style: none;
+    margin: 5pt 0 0;
+    padding: 0;
+  }
+
+  .skills li {
+    margin: 0 0 3pt;
+    color: #1b1c20;
+  }
+
+  .skills b {
+    font-weight: 700;
+  }
+
+  @media print {
+    .paper {
+      box-shadow: none;
+      width: auto;
+      min-height: 0;
+      padding: 0;
+      margin: 0;
+    }
+  }
+</style>

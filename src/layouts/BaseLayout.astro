@@ -2,9 +2,10 @@
 interface Props {
   title: string;
   description?: string;
+  wide?: boolean;
 }
 
-const { title } = Astro.props;
+const { title, wide = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -64,6 +65,11 @@ const { title } = Astro.props;
         max-width: 800px;
         margin: 0 auto;
         padding: 1.5rem 2rem 3rem;
+      }
+
+      .container.wide {
+        max-width: 8.5in;
+        padding: 1.5rem 1rem 3rem;
       }
 
       header {
@@ -134,6 +140,7 @@ const { title } = Astro.props;
         <a href="/" class="logo">palko.dev</a>
         <nav>
           <a href="/">Home</a>
+          <a href="/resume">Resume</a>
           <a href="/blog">Blog</a>
           <a href="/bookshelf">Bookshelf</a>
           <a href="/bar-cart">Bar Cart</a>
@@ -141,7 +148,7 @@ const { title } = Astro.props;
         </nav>
       </div>
     </header>
-    <div class="container">
+    <div class:list={['container', { wide }]}>
       <main>
         <slot />
       </main>
