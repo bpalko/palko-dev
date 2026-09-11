@@ -10,8 +10,8 @@
   <section>
     <h2>Technical Skills</h2>
     <ul class="skills">
-      <li><b>Core:</b> Go, Python, Bash, Kubernetes (operators, CRDs, Kubebuilder), Terraform, Helm, Crossplane, ArgoCD, Kargo, AWS, GCP</li>
-      <li><b>Infrastructure:</b> Docker, GitLab CI/CD, GitHub Actions, Postgres, Istio, Tyk, External Secrets, Kafka</li>
+      <li><b>Core:</b> Go, Kubernetes (operators, CRDs, Kubebuilder), Terraform, Helm, Crossplane, ArgoCD, AWS/GCP</li>
+      <li><b>Infrastructure:</b> Docker, GitLab CI/CD, GitHub Actions, Postgres, Python, Istio, External Secrets</li>
       <li><b>Agentic:</b> Cursor (self-hosted agents), Claude Code</li>
     </ul>
   </section>
@@ -21,9 +21,9 @@
       <div class="row"><span class="left"><b>Senior Software Engineer</b></span><span class="right">Jan. 2024 – Present</span></div>
       <div class="row sub"><span class="left"><i>First American</i></span><span class="right">Remote</span></div>
       <ul class="bullets">
-        <li>Removed Aurora cluster provisioning from the PR deployment critical path by building a Go Kubernetes operator that turns each preview into an isolated database tenant on the stable development cluster and manages its lifecycle from registration through cleanup.</li>
-        <li>Built a Go Kubernetes operator that continuously reconciles RDS-managed Aurora credentials from AWS Secrets Manager into Crossplane-managed Kubernetes resources, preventing credential drift through rotation and disaster recovery.</li>
-        <li>Built a policy-driven Kubernetes operator that automatically provisions and reconciles required Kubernetes compliance resources in labeled customer namespaces, eliminating per-application setup and correcting policy drift throughout the tenant lifecycle.</li>
+        <li>Removed Aurora provisioning from the PR critical path with a Go Kubernetes operator that makes each preview an isolated database tenant of the shared dev cluster, from creation through teardown.</li>
+        <li>Built a Go operator that reconciles RDS-managed Aurora credentials from AWS Secrets Manager into Crossplane-managed Kubernetes resources, preventing drift through rotation and disaster recovery.</li>
+        <li>Built a policy-driven operator that provisions and reconciles the Kubernetes compliance resources each application needs in labeled customer namespaces, correcting drift for the life of the tenant.</li>
         <li>Adopted Crossplane as the infrastructure API: custom resources and Helm packages for Aurora RDS/DocDB, S3, Redis, and IAM (Pod Identity), consumed by ~400 application tenants.</li>
         <li>Rolled out ArgoCD and Kargo as the Golden Path, moving releases from multi-month cycles to per-commit delivery. Every tenant depends on a Helm chart we maintain that abstracts platform features onto Kubernetes, including the Istio mesh, External Secrets, ingress via Tyk, and autoscaling.</li>
         <li>Technical Pod Lead for 3–8 engineers; platform on-call.</li>
@@ -33,17 +33,17 @@
       <div class="row"><span class="left"><b>Cloud Engineer</b></span><span class="right">Mar. 2022 – Jan. 2024</span></div>
       <div class="row sub"><span class="left"><i>Alteryx</i></span><span class="right">Remote</span></div>
       <ul class="bullets">
-        <li>Rebuilt the multi-cloud Terraform platform (GCP and AWS) across four platform accounts plus customer private data planes, and cut full environment builds from weeks to under 3 hours; wrote the architecture and runtime guide engineering used afterward.</li>
-        <li>Wrote Go services to create and destroy split-plane clusters, generate manifests, template Terraform, and mirror GitLab projects.</li>
-        <li>Technical lead for AI data-plane infrastructure in Terraform; onboarded teams onto Kubernetes, ArgoCD, and Helm.</li>
+        <li>Rebuilt the multi-cloud Terraform platform (GCP and AWS) across four accounts plus customer data planes, cutting environment builds from weeks to under 3 hours.</li>
+        <li>Wrote Go services for split-plane cluster lifecycle, Terraform templating, and GitLab mirroring.</li>
+        <li>Led AI data-plane infrastructure in Terraform; onboarded teams onto Kubernetes, ArgoCD, and Helm.</li>
       </ul>
     </div>
     <div class="entry">
       <div class="row"><span class="left"><b>Predictive Modeler</b></span><span class="right">June 2020 – Mar. 2022</span></div>
       <div class="row sub"><span class="left"><i>Auto-Owners Insurance</i></span><span class="right">Lansing, MI</span></div>
       <ul class="bullets">
-        <li>Built and ran 70+ production microservice scrapers with Kafka and cron, used by underwriters for risk analysis.</li>
-        <li>Migrated the department to Konvoy Kubernetes (production and non-production) and trained modelers on the new cluster.</li>
+        <li>Built and ran 70+ production scrapers with Kafka and cron, used by underwriters for risk analysis.</li>
+        <li>Migrated the department to Konvoy Kubernetes (production and non-production) and trained modelers.</li>
       </ul>
     </div>
   </section>
