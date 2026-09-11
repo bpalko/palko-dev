@@ -21,7 +21,9 @@
       <div class="row"><span class="left"><b>Senior Software Engineer</b></span><span class="right">Jan. 2024 – Present</span></div>
       <div class="row sub"><span class="left"><i>First American</i></span><span class="right">Remote</span></div>
       <ul class="bullets">
-        <li>Wrote Go Kubernetes operators (Kubebuilder / controller-runtime) that extend the platform control plane: a preview-database operator for pull-request environments (namespace isolation; logical DBs with connection limits; migrations, roles, auth, teardown) and a reconciler that syncs Crossplane-managed Aurora RDS credentials into AWS Secrets Manager across disaster recovery.</li>
+        <li>Removed Aurora cluster provisioning from the PR deployment critical path by building a Go Kubernetes operator that turns each preview into an isolated database tenant on the stable development cluster and manages its lifecycle from registration through cleanup.</li>
+        <li>Built a Go Kubernetes operator that continuously reconciles RDS-managed Aurora credentials from AWS Secrets Manager into Crossplane-managed Kubernetes resources, preventing credential drift through rotation and disaster recovery.</li>
+        <li>Built a policy-driven Kubernetes operator that automatically provisions and reconciles required Kubernetes compliance resources in labeled customer namespaces, eliminating per-application setup and correcting policy drift throughout the tenant lifecycle.</li>
         <li>Adopted Crossplane as the infrastructure API: custom resources and Helm packages for Aurora RDS/DocDB, S3, Redis, and IAM (Pod Identity), consumed by ~400 application tenants.</li>
         <li>Rolled out ArgoCD and Kargo as the Golden Path, moving releases from multi-month cycles to per-commit delivery. Every tenant depends on a Helm chart we maintain that abstracts platform features onto Kubernetes, including the Istio mesh, External Secrets, ingress via Tyk, and autoscaling.</li>
         <li>Technical Pod Lead for 3–8 engineers; platform on-call.</li>
@@ -74,8 +76,8 @@
     color: #1b1c20;
     padding: 0.5in 0.58in;
     font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-    font-size: 10.2pt;
-    line-height: 1.28;
+    font-size: 10pt;
+    line-height: 1.26;
     box-sizing: border-box;
   }
 
@@ -116,7 +118,7 @@
   }
 
   section {
-    margin-top: 8pt;
+    margin-top: 7pt;
   }
 
   section:first-of-type {
@@ -135,7 +137,7 @@
   }
 
   .entry {
-    margin-top: 5pt;
+    margin-top: 4pt;
   }
 
   .entry:first-child {
@@ -181,7 +183,7 @@
   }
 
   .bullets li {
-    margin: 0 0 2pt;
+    margin: 0 0 1.5pt;
     padding-left: 2pt;
     color: #1b1c20;
   }
