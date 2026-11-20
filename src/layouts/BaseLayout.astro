@@ -101,6 +101,7 @@ const { title, wide = false } = Astro.props;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
         gap: 0.75rem;
         padding: 1.25rem var(--page-pad-x);
         position: relative;
@@ -118,8 +119,14 @@ const { title, wide = false } = Astro.props;
         color: var(--accent);
       }
 
-      .nav-menu > summary {
-        list-style: none;
+      .nav-toggle-input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .nav-toggle {
+        display: none;
         align-items: center;
         justify-content: center;
         width: 2.5rem;
@@ -131,16 +138,9 @@ const { title, wide = false } = Astro.props;
         border-radius: 4px;
       }
 
-      .nav-menu > summary::-webkit-details-marker {
-        display: none;
-      }
-
-      .nav-menu > summary::marker {
-        content: '';
-      }
-
-      .nav-menu > summary:hover,
-      .nav-menu[open] > summary {
+      .nav-toggle:hover,
+      .nav-toggle-input:focus-visible + .nav-toggle,
+      .nav-toggle-input:checked + .nav-toggle {
         border-color: rgba(74, 222, 128, 0.45);
         color: var(--accent);
       }
@@ -180,17 +180,6 @@ const { title, wide = false } = Astro.props;
         max-width: 100%;
       }
 
-      /* Desktop: always show links even when <details> is closed */
-      @media (min-width: 721px) {
-        .nav-menu > summary {
-          display: none;
-        }
-
-        .nav-menu > nav {
-          display: flex;
-        }
-      }
-
       @media (max-width: 720px) {
         :root {
           --page-pad-x: 1rem;
@@ -200,14 +189,14 @@ const { title, wide = false } = Astro.props;
           padding: 0.85rem var(--page-pad-x);
         }
 
-        .nav-menu > summary {
+        .nav-toggle {
           display: inline-flex;
-          position: relative;
+          margin-left: auto;
           z-index: 2;
         }
 
-        .nav-menu[open] > nav {
-          display: flex;
+        nav {
+          display: none;
           position: absolute;
           top: calc(100% + 0.35rem);
           left: var(--page-pad-x);
@@ -222,6 +211,10 @@ const { title, wide = false } = Astro.props;
           border-radius: 6px;
           overflow: hidden;
           box-shadow: 0 16px 40px -18px rgba(0, 0, 0, 0.85);
+        }
+
+        .nav-toggle-input:checked ~ nav {
+          display: flex;
         }
 
         nav a {
@@ -248,19 +241,23 @@ const { title, wide = false } = Astro.props;
     <header>
       <div class="header-inner">
         <a href="/" class="logo">palko.dev</a>
-        <details class="nav-menu">
-          <summary aria-label="Menu">
-            <span class="nav-toggle-bars" aria-hidden="true"></span>
-          </summary>
-          <nav id="site-nav">
-            <a href="/">Home</a>
-            <a href="/resume">Resume</a>
-            <a href="/blog">Blog</a>
-            <a href="/bookshelf">Bookshelf</a>
-            <a href="/bar-cart">Bar Cart</a>
-            <a href="/music">Music</a>
-          </nav>
-        </details>
+        <input
+          class="nav-toggle-input"
+          type="checkbox"
+          id="nav-toggle"
+          aria-controls="site-nav"
+        />
+        <label class="nav-toggle" for="nav-toggle" aria-label="Menu">
+          <span class="nav-toggle-bars" aria-hidden="true"></span>
+        </label>
+        <nav id="site-nav">
+          <a href="/">Home</a>
+          <a href="/resume">Resume</a>
+          <a href="/blog">Blog</a>
+          <a href="/bookshelf">Bookshelf</a>
+          <a href="/bar-cart">Bar Cart</a>
+          <a href="/music">Music</a>
+        </nav>
       </div>
     </header>
     <div class:list={['container', { wide }]}>
