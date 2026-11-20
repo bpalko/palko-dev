@@ -94,7 +94,7 @@ const playlists = [
 
   .playlist-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
     gap: 1.5rem;
   }
 
@@ -104,5 +104,21 @@ const playlists = [
 
   .playlist-embed:hover {
     border-color: rgba(74, 222, 128, 0.4);
+  }
+
+  .embed-frame iframe {
+    display: block;
+    width: 100%;
+  }
+
+  @media (max-width: 720px) {
+    .playlist-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .embed-frame iframe[height='480'] {
+      height: 380px;
+    }
   }
 </style>

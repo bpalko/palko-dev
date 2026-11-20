@@ -149,7 +149,7 @@ function renderStars(rating: number | undefined) {
 
   .booze-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
     gap: 1.5rem;
   }
 
@@ -243,9 +243,18 @@ function renderStars(rating: number | undefined) {
     font-style: italic;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 720px) {
     .booze-grid {
       grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .booze-card {
+      padding: 0.85rem;
+    }
+
+    .booze-name {
+      overflow-wrap: anywhere;
     }
   }
 </style>

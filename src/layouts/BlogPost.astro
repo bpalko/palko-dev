@@ -73,6 +73,7 @@ const { frontmatter } = Astro.props;
 
   .tags {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: 0.75rem;
   }
@@ -171,5 +172,17 @@ const { frontmatter } = Astro.props;
   .content :global(a:hover) {
     text-decoration: underline;
     color: #86efac;
+  }
+
+  @media (max-width: 720px) {
+    h1 {
+      font-size: 1.3rem;
+      overflow-wrap: anywhere;
+    }
+
+    .content :global(pre) {
+      padding: 0.85rem;
+      font-size: 0.85rem;
+    }
   }
 </style>
