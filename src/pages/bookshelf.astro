@@ -133,7 +133,7 @@ const wantToRead = booksWithCovers.filter((book) => book.status === 'want-to-rea
 
   .book-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
     gap: 1.5rem;
   }
 
@@ -215,9 +215,18 @@ const wantToRead = booksWithCovers.filter((book) => book.status === 'want-to-rea
     font-style: italic;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 720px) {
     .book-grid {
       grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .book-card {
+      padding: 0.85rem;
+    }
+
+    .book-title {
+      overflow-wrap: anywhere;
     }
   }
 </style>

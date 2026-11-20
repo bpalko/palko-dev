@@ -12,7 +12,7 @@ const { title, wide = false } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/palko.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,6 +29,7 @@ const { title, wide = false } = Astro.props;
         --accent: #4ade80;
         --accent-soft: rgba(74, 222, 128, 0.14);
         --accent-glow: rgba(74, 222, 128, 0.32);
+        --page-pad-x: 2rem;
       }
 
       * {
@@ -43,11 +44,14 @@ const { title, wide = false } = Astro.props;
         background-color: var(--bg);
         line-height: 1.65;
         font-size: 16px;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
       }
 
       body {
         position: relative;
         min-height: 100vh;
+        overflow-x: clip;
       }
 
       body::before {
@@ -64,7 +68,7 @@ const { title, wide = false } = Astro.props;
       .container {
         max-width: 800px;
         margin: 0 auto;
-        padding: 1.5rem 2rem 3rem;
+        padding: 1.5rem var(--page-pad-x) 3rem;
       }
 
       .container.wide {
@@ -99,7 +103,8 @@ const { title, wide = false } = Astro.props;
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 0.75rem;
-        padding: 1.25rem 2rem;
+        padding: 1.25rem var(--page-pad-x);
+        position: relative;
       }
 
       .logo {
@@ -114,9 +119,45 @@ const { title, wide = false } = Astro.props;
         color: var(--accent);
       }
 
+      .nav-toggle-input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .nav-toggle {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text-color);
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      .nav-toggle:hover,
+      .nav-toggle-input:focus-visible + .nav-toggle,
+      .nav-toggle-input:checked + .nav-toggle {
+        border-color: rgba(74, 222, 128, 0.45);
+        color: var(--accent);
+      }
+
+      .nav-toggle-bars {
+        display: block;
+        width: 1rem;
+        height: 1px;
+        background: currentColor;
+        box-shadow: 0 -5px 0 currentColor, 0 5px 0 currentColor;
+      }
+
       nav {
         display: flex;
+        flex-wrap: wrap;
         gap: 1.5rem;
+        justify-content: flex-end;
       }
 
       nav a {
@@ -132,13 +173,84 @@ const { title, wide = false } = Astro.props;
       main {
         min-height: 60vh;
       }
+
+      img,
+      iframe,
+      video {
+        max-width: 100%;
+      }
+
+      @media (max-width: 720px) {
+        :root {
+          --page-pad-x: 1rem;
+        }
+
+        .header-inner {
+          padding: 0.85rem var(--page-pad-x);
+        }
+
+        .nav-toggle {
+          display: inline-flex;
+          margin-left: auto;
+          z-index: 2;
+        }
+
+        nav {
+          display: none;
+          position: absolute;
+          top: calc(100% + 0.35rem);
+          left: var(--page-pad-x);
+          right: var(--page-pad-x);
+          z-index: 20;
+          flex-direction: column;
+          gap: 0;
+          border: 1px solid var(--border);
+          background: rgba(10, 10, 10, 0.97);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border-radius: 6px;
+          overflow: hidden;
+          box-shadow: 0 16px 40px -18px rgba(0, 0, 0, 0.85);
+        }
+
+        .nav-toggle-input:checked ~ nav {
+          display: flex;
+        }
+
+        nav a {
+          padding: 0.75rem 0.9rem;
+          border-bottom: 1px solid var(--border);
+          font-size: 0.88rem;
+        }
+
+        nav a:last-child {
+          border-bottom: none;
+        }
+
+        .container {
+          padding: 1.15rem var(--page-pad-x) 2.5rem;
+        }
+
+        .container.wide {
+          padding: 1.15rem 0.75rem 2.5rem;
+        }
+      }
     </style>
   </head>
   <body>
     <header>
       <div class="header-inner">
         <a href="/" class="logo">palko.dev</a>
-        <nav>
+        <input
+          class="nav-toggle-input"
+          type="checkbox"
+          id="nav-toggle"
+          aria-controls="site-nav"
+        />
+        <label class="nav-toggle" for="nav-toggle" aria-label="Menu">
+          <span class="nav-toggle-bars" aria-hidden="true"></span>
+        </label>
+        <nav id="site-nav">
           <a href="/">Home</a>
           <a href="/resume">Resume</a>
           <a href="/blog">Blog</a>
