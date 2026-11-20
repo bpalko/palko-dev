@@ -118,8 +118,8 @@ const { title, wide = false } = Astro.props;
         color: var(--accent);
       }
 
-      .nav-toggle {
-        display: none;
+      .nav-menu > summary {
+        list-style: none;
         align-items: center;
         justify-content: center;
         width: 2.5rem;
@@ -131,8 +131,16 @@ const { title, wide = false } = Astro.props;
         border-radius: 4px;
       }
 
-      .nav-toggle:hover,
-      .nav-toggle[aria-expanded='true'] {
+      .nav-menu > summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .nav-menu > summary::marker {
+        content: '';
+      }
+
+      .nav-menu > summary:hover,
+      .nav-menu[open] > summary {
         border-color: rgba(74, 222, 128, 0.45);
         color: var(--accent);
       }
@@ -172,6 +180,17 @@ const { title, wide = false } = Astro.props;
         max-width: 100%;
       }
 
+      /* Desktop: always show links even when <details> is closed */
+      @media (min-width: 721px) {
+        .nav-menu > summary {
+          display: none;
+        }
+
+        .nav-menu > nav {
+          display: flex;
+        }
+      }
+
       @media (max-width: 720px) {
         :root {
           --page-pad-x: 1rem;
@@ -181,13 +200,14 @@ const { title, wide = false } = Astro.props;
           padding: 0.85rem var(--page-pad-x);
         }
 
-        .nav-toggle {
+        .nav-menu > summary {
           display: inline-flex;
+          position: relative;
           z-index: 2;
         }
 
-        nav {
-          display: none;
+        .nav-menu[open] > nav {
+          display: flex;
           position: absolute;
           top: calc(100% + 0.35rem);
           left: var(--page-pad-x);
@@ -202,10 +222,6 @@ const { title, wide = false } = Astro.props;
           border-radius: 6px;
           overflow: hidden;
           box-shadow: 0 16px 40px -18px rgba(0, 0, 0, 0.85);
-        }
-
-        nav.is-open {
-          display: flex;
         }
 
         nav a {
@@ -232,23 +248,19 @@ const { title, wide = false } = Astro.props;
     <header>
       <div class="header-inner">
         <a href="/" class="logo">palko.dev</a>
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          aria-label="Open menu"
-        >
-          <span class="nav-toggle-bars" aria-hidden="true"></span>
-        </button>
-        <nav id="site-nav">
-          <a href="/">Home</a>
-          <a href="/resume">Resume</a>
-          <a href="/blog">Blog</a>
-          <a href="/bookshelf">Bookshelf</a>
-          <a href="/bar-cart">Bar Cart</a>
-          <a href="/music">Music</a>
-        </nav>
+        <details class="nav-menu">
+          <summary aria-label="Menu">
+            <span class="nav-toggle-bars" aria-hidden="true"></span>
+          </summary>
+          <nav id="site-nav">
+            <a href="/">Home</a>
+            <a href="/resume">Resume</a>
+            <a href="/blog">Blog</a>
+            <a href="/bookshelf">Bookshelf</a>
+            <a href="/bar-cart">Bar Cart</a>
+            <a href="/music">Music</a>
+          </nav>
+        </details>
       </div>
     </header>
     <div class:list={['container', { wide }]}>
@@ -256,29 +268,5 @@ const { title, wide = false } = Astro.props;
         <slot />
       </main>
     </div>
-    <script>
-      const toggle = document.querySelector('.nav-toggle');
-      const nav = document.querySelector('#site-nav');
-
-      if (toggle instanceof HTMLButtonElement && nav instanceof HTMLElement) {
-        const setOpen = (open: boolean) => {
-          toggle.setAttribute('aria-expanded', String(open));
-          toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-          nav.classList.toggle('is-open', open);
-        };
-
-        toggle.addEventListener('click', () => {
-          setOpen(toggle.getAttribute('aria-expanded') !== 'true');
-        });
-
-        nav.querySelectorAll('a').forEach((link) => {
-          link.addEventListener('click', () => setOpen(false));
-        });
-
-        window.matchMedia('(min-width: 721px)').addEventListener('change', (event) => {
-          if (event.matches) setOpen(false);
-        });
-      }
-    </script>
   </body>
 </html>
