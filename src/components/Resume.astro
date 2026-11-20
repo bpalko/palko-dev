@@ -11,7 +11,7 @@
     <h2>Technical Skills</h2>
     <ul class="skills">
       <li><b>Core:</b> Go, Kubernetes (operators, CRDs, Kubebuilder), Terraform, Helm, Crossplane, ArgoCD, AWS/GCP</li>
-      <li><b>Infrastructure:</b> Docker, GitLab CI/CD, GitHub Actions, Postgres, Python, Istio, External Secrets</li>
+      <li><b>Infrastructure:</b> Postgres, Python, Istio, Kyverno, Docker, GitLab CI/CD, GitHub Actions</li>
       <li><b>Agentic:</b> Cursor (self-hosted agents), Claude Code</li>
     </ul>
   </section>
@@ -21,13 +21,11 @@
       <div class="row"><span class="left"><b>Senior Software Engineer</b></span><span class="right">Jan. 2024 – Present</span></div>
       <div class="row sub"><span class="left"><i>First American</i></span><span class="right">Remote</span></div>
       <ul class="bullets">
-        <li>Removed Aurora provisioning from the PR critical path with a Go Kubernetes operator that makes each preview an isolated database tenant of the shared dev cluster, from creation through teardown.</li>
-        <li>Built a Go operator that reconciles RDS-managed Aurora credentials from AWS Secrets Manager into Crossplane-managed Kubernetes resources, preventing drift through rotation and disaster recovery.</li>
-        <li>Built a policy-driven operator that provisions and reconciles the Kubernetes compliance resources each application needs in labeled customer namespaces, correcting drift for the life of the tenant.</li>
-        <li>Adopted Crossplane as the infrastructure API: custom resources and Helm packages for Aurora RDS/DocDB, S3, Redis, and IAM (Pod Identity), consumed by ~400 application tenants.</li>
-        <li>Drove the transformation of AWS and GCP infrastructure into a shared Terraform platform, giving teams a consistent, scalable deployment model.</li>
-        <li>Rolled out ArgoCD and Kargo as the Golden Path, moving releases from multi-month cycles to per-commit delivery. Every tenant depends on a Helm chart we maintain that abstracts platform features onto Kubernetes, including the Istio mesh, External Secrets, ingress via Tyk, and autoscaling.</li>
-        <li>Technical Pod Lead across multiple platform initiatives, accountable for teams of 3–8 while remaining hands-on in architecture and implementation; platform on-call.</li>
+        <li>Cut PR database wait from ~20 minutes (full Aurora via Crossplane per PR) by building a Go operator that tenants each preview onto a shared Aurora cluster across ~100s concurrent PRs/day.</li>
+        <li>Authored Crossplane XRDs, compositions, and Helm packages for Aurora RDS/DocDB, S3, Redis, and IAM (Pod Identity), and led adoption into the Golden Path for ~400 application tenants, replacing ticket-driven Terraform.</li>
+        <li>Built a policy-driven Go operator that provisions and reconciles NetworkPolicies, Pod Security, ResourceQuotas, and related controls in labeled customer namespaces, drift-corrected for the life of each tenant.</li>
+        <li>Led ArgoCD as the platform’s first real CI/CD path, designing Application Set onboarding and sequential environment promotion (dev → stage → prod) so teams could go PR-to-prod on a per-commit cadence instead of multi-month cycles. Every tenant depends on a Helm chart we maintain that abstracts platform features onto Kubernetes, including the Istio mesh, secrets management, autoscaling, and other Kubernetes primitives.</li>
+        <li>Technical Pod Lead for two years across platform and controller initiatives, accountable for teams of 3-8 while remaining hands-on in operator architecture and implementation; platform on-call.</li>
       </ul>
     </div>
     <div class="entry">
