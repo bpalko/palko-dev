@@ -1,0 +1,8 @@
+.bin
+bin
+.ssh
+.git
+*.md
+cloudflared.yml.example
+spectrum-app.example.json
+fly.toml

@@ -1,79 +1,64 @@
 # palko.dev
 
-A personal site built with Astro and TypeScript. Home is a short pitch. The resume lives on its own page, with a PDF download.
+A monorepo for Brendan Palkowski's site and SSH portfolio.
 
-This is just a passion site for me. I'm looking to dive into the world of blogging and writing. I've drawn a lot of inspiritation from Anthony Bourdain, even if his voice and style may not mesh with technical writing. But I don't want this page to only be technical; we'll see what I turn it in to.
+| App | Path | Hosting |
+| --- | --- | --- |
+| Website | [`apps/web`](apps/web) | **Cloudflare Pages** at [palko.dev](https://palko.dev) |
+| SSH TUI | [`apps/ssh`](apps/ssh) | Fly.io (or any VM) + Cloudflare **DNS-only** for `ssh.palko.dev` — [why](apps/ssh/HOSTING.md) |
 
-I'm not the world's most well-read person, but the books I have read I'm passionate about. You'll find those on my bookshelf, both in this site, and at home.
+Home is a short pitch. The resume lives on its own page, with a PDF download. The same copy shows up over SSH.
 
-You'll find my bar cart. I'm interested in spirits, mainly whiskey and red wines. Recently been experimenting with different gins as well.
+This is a passion site. I'm looking to dive into blogging and writing. I've drawn a lot of inspiration from Anthony Bourdain, even if his voice and style may not mesh with technical writing. I don't want this page to only be technical.
 
-You'll also find my Music page, pulled straight from Spotify. No curation, no highlight reel — I promise I have taste.
-
-## 🚀 Quick Start
-
-### Development
+You'll find a bookshelf, a bar cart, and a Music page pulled straight from Spotify.
 
 ```bash
-# Install dependencies
+# website
 npm install --ignore-scripts
+npm run dev          # http://localhost:4321
 
-# Start development server
-npm run dev
+# SSH portfolio
+cd apps/ssh
+go run ./cmd/ssh-portfolio
+# then: ssh -p 2222 localhost
 ```
 
-Visit http://localhost:4321 to see the site!
+## Website (Cloudflare)
 
-### Build for Production
+Astro + TypeScript. Cloudflare Pages should keep using the **repo root**:
+
+- **Build command:** `npm run build`
+- **Output directory:** `dist`
+
+`apps/web` writes into that root `dist/` folder so the existing Pages project does not need a new root directory.
 
 ```bash
-# Build the site
-npm run build
-
-# Preview production build locally
+npm run build     # astro check && astro build
 npm run preview
 ```
 
-## 📁 Project Structure
+## SSH portfolio
+
+Charm stack (`wish`, `bubbletea`, `bubbles`, `lipgloss`). See [`apps/ssh/README.md`](apps/ssh/README.md) for keys and local run, and [`apps/ssh/HOSTING.md`](apps/ssh/HOSTING.md) for Cloudflare vs Fly.io.
+
+Cloudflare Pages / Workers cannot listen on TCP 22. The site stays on Cloudflare; `ssh.palko.dev` should be a grey-cloud DNS record at a small SSH origin.
+
+## Layout
 
 ```
 /
-├── README.md
-├── astro.config.mjs
-├── package-lock.json
-├── package.json
-├── public
-│   ├── bottles
-│   │   ├── buffalotrace.png
-│   │   ├── campari.png
-│   │   ├── eaglerare.png
-│   │   ├── ehtaylorSB.png
-│   │   ├── elijahcraigBP.png
-│   │   ├── midwinter12.png
-│   │   ├── midwinter13.png
-│   │   ├── rosso.png
-│   │   └── tenjaku.png
-│   ├── palko.png
-│   └── resume.pdf
-├── src
-│   ├── components
-│   │   └── Resume.astro
-│   ├── data
-│   │   ├── barCart.ts
-│   │   └── books.ts
-│   ├── layouts
-│   │   ├── BaseLayout.astro
-│   │   └── BlogPost.astro
-│   ├── pages
-│   │   ├── bar-cart.astro
-│   │   ├── blog
-│   │   │   ├── index.astro
-│   │   │   └── learning-typescript.md
-│   │   ├── bookshelf.astro
-│   │   ├── index.astro
-│   │   ├── music.astro
-│   │   └── resume.astro
-│   └── utils
-│       └── bookCovers.ts
-└── tsconfig.json
+├── apps/
+│   ├── web/                 # Astro site (Cloudflare Pages)
+│   │   ├── astro.config.mjs
+│   │   ├── package.json
+│   │   ├── public/
+│   │   └── src/
+│   └── ssh/                 # Wish SSH TUI
+│       ├── cmd/ssh-portfolio/
+│       ├── internal/
+│       ├── Dockerfile
+│       └── fly.toml
+├── package.json             # npm workspaces → @palko/web
+└── README.md
 ```

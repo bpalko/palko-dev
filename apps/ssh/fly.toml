@@ -1,0 +1,31 @@
+# Fly.io is the recommended origin for the public SSH listener.
+# The website stays on Cloudflare Pages. Point ssh.palko.dev at this
+# machine with a DNS-only (grey-cloud) A/AAAA record — see HOSTING.md.
+#
+#   fly apps create palko-ssh
+#   fly volumes create ssh_host_keys --region ord --size 1
+#   fly deploy
+
+app = "palko-ssh"
+primary_region = "ord"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  SSH_ADDR = "0.0.0.0:2222"
+  HOST_KEY_PATH = "/data/host_ed25519"
+
+[[mounts]]
+  source = "ssh_host_keys"
+  destination = "/data"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 2222
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [[services.ports]]
+    port = 22

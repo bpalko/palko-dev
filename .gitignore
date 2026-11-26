@@ -1,6 +1,7 @@
 # build output
 dist/
 .astro/
+apps/web/.astro/
 
 # dependencies
 node_modules/
@@ -25,3 +26,8 @@ pnpm-debug.log*
 *.swo
 *~
 SESSION_LOG.md
+
+# SSH portfolio (host keys, local binaries)
+apps/ssh/.ssh/
+apps/ssh/bin/
+/apps/ssh/ssh-portfolio
