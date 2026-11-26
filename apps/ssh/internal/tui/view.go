@@ -156,7 +156,7 @@ func (m Model) viewContact(width int) string {
 	st := m.styles
 	var b strings.Builder
 	b.WriteString(st.heading.Width(width).Render("Contact") + "\n\n")
-	b.WriteString(wrapText("Feel free to reach out. The website is on Cloudflare; this TUI is a sibling app in the same repo.", width) + "\n\n")
+	b.WriteString(wrapText("Feel free to reach out.", width) + "\n\n")
 	lines := [][2]string{
 		{"Web", content.Site},
 		{"GitHub", content.GitHub},
