@@ -1,0 +1,19 @@
+# Optional Cloudflare Tunnel config if you want to reach the TUI without
+# opening inbound TCP. Visitors then need cloudflared (ProxyCommand) or
+# a browser-rendered SSH session via Cloudflare Access — not `ssh host`.
+#
+#   cloudflared tunnel create palko-ssh
+#   cloudflared tunnel route dns palko-ssh ssh.palko.dev
+#   cloudflared tunnel --config cloudflared.yml run
+#
+# Client ~/.ssh/config:
+#   Host ssh.palko.dev
+#     ProxyCommand cloudflared access ssh --hostname %h
+
+tunnel: <TUNNEL_ID>
+credentials-file: /home/<user>/.cloudflared/<TUNNEL_ID>.json
+
+ingress:
+  - hostname: ssh.palko.dev
+    service: ssh://localhost:2222
+  - service: http_status:404

@@ -1,0 +1,18 @@
+{
+  "comment": "Optional Cloudflare Spectrum SSH app (Pro/Business: one SSH app per zone). Still needs an origin running this binary. Do not orange-cloud the record.",
+  "protocol": "tcp/22",
+  "dns": {
+    "type": "CNAME",
+    "name": "ssh.palko.dev"
+  },
+  "origin_direct": [
+    "tcp://ORIGIN_IP:22"
+  ],
+  "proxy_protocol": "off",
+  "tls": "off",
+  "edge_ips": {
+    "type": "dynamic",
+    "connectivity": "all"
+  },
+  "traffic_type": "direct"
+}
