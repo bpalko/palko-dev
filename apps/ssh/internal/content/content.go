@@ -22,7 +22,7 @@ const (
 
 const Intro = "I design the systems other teams ship on: Kubernetes APIs, GitOps, multi-cloud infrastructure. Currently at First American."
 
-const About = `This is a passion site. I'm looking to dive into blogging and writing. I've drawn a lot of inspiration from Anthony Bourdain, even if his voice and style may not mesh with technical writing. I don't want this page to only be technical.
+const About = `This is a passion site. I'm looking to dive into blogging and writing.
 
 I'm not the world's most well-read person, but the books I have read I'm passionate about. You'll find those on the bookshelf, both here and at home.
 
